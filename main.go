@@ -7,6 +7,7 @@ import (
         "encoding/json"
         "fmt"
         "net/http"
+        "strings"
 )
 
 type Movie struct {
@@ -83,7 +84,8 @@ func main() {
         })
 
         b.Handle("/movie", func(m *tb.Message) {
-                finalPlot := searchMovie(m.Payload)
+                query := strings.Replace(m.Payload, " ", "+", -1)
+                finalPlot := searchMovie(query)
                 b.Send(m.Sender, "Plot: "+finalPlot)
         })
 

@@ -15,7 +15,7 @@ func main() {
 
         webhook := &tb.Webhook{
                 Listen: ":" + port,
-                Endpoint: &tb.WebhookEnpoint{PublicURL: publicURL},
+                Endpoint: &tb.WebhookEndpoint{PublicURL: publicURL},
         }
 
         pref := tb.Settings{
@@ -28,7 +28,7 @@ func main() {
                 log.Fatal(err)
         }
 
-        b.Handle("/hello". func(m *tb.Message) {
+        b.Handle("/hello", func(m *tb.Message) {
                 b.Send(m.Sender, "Hi!")
         })
 }

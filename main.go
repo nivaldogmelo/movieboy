@@ -5,6 +5,8 @@ import (
         tb "gopkg.in/tucnak/telebot.v2"
         "log"
         "encoding/json"
+        "fmt"
+        "net/http"
 )
 
 type Movie struct {
@@ -37,7 +39,7 @@ type Rating struct {
         Value  string `json:"Value"`
 }
 
-func searchMovie(movie string) *Movie {
+func searchMovie(movie string) string {
         endpoint := fmt.Sprintf("www.omdbapi.com/?apikey=18506062&t=%s", movie)
 
         resp, err := http.Get(endpoint)
@@ -81,8 +83,8 @@ func main() {
         })
 
         b.Handle("/movie", func(m *tb.Message) {
-                result := searchMovie(m.Payload)
-                b.Send(m.Sender, "Plot: "+result)
+                finalPlot := searchMovie(m.Payload)
+                b.Send(m.Sender, "Plot: "+finalPlot)
         })
 
         b.Start()

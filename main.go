@@ -40,7 +40,7 @@ type Rating struct {
         Value  string `json:"Value"`
 }
 
-func searchMovie(movie string) (string, string) {
+func infoMovie(movie string) (string, string, string) {
         endpoint := fmt.Sprintf("http://www.omdbapi.com/?apikey=18506062&t=%s", movie)
 
         resp, err := http.Get(endpoint)
@@ -54,7 +54,12 @@ func searchMovie(movie string) (string, string) {
                 log.Fatal(err)
         }
 
-        return result.Plot, result.Poster
+        rating := "Ratings:"
+        for _, element := range result.Ratings {
+                rating = rating + "\n" + element.Source + "\n" + element.Value
+        }
+        
+        return result.Plot, result.Poster, rating
 }
 
 func main() {
@@ -83,11 +88,12 @@ func main() {
                 b.Send(m.Sender, "You entered "+m.Payload)
         })
 
-        b.Handle("/movie", func(m *tb.Message) {
+        b.Handle("/info", func(m *tb.Message) {
                 query := strings.Replace(m.Payload, " ", "+", -1)
-                finalPlot, finalPoster := searchMovie(query)
+                finalPlot, finalPoster, finalRating := infoMovie(query)
                 b.Send(m.Sender, &tb.Photo{File: tb.FromURL(finalPoster)})
                 b.Send(m.Sender, "Plot: "+finalPlot)
+                b.Send(m.Sender, finalRating)
         })
 
         b.Start()

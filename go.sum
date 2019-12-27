@@ -1,0 +1,4 @@
+github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
+github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+gopkg.in/tucnak/telebot.v2 v2.0.0-20191225234705-baa616bc00d5 h1:RZFYdp3MywQJRmd1GkxotXU/LhVlj5LcjAudFnr7Iyw=
+gopkg.in/tucnak/telebot.v2 v2.0.0-20191225234705-baa616bc00d5/go.mod h1:+//wyPtHTeW2kfyEBwB05Hqnxev7AGrsLIyylSH++KU=

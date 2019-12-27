@@ -40,7 +40,7 @@ type Rating struct {
 }
 
 func searchMovie(movie string) string {
-        endpoint := fmt.Sprintf("www.omdbapi.com/?apikey=18506062&t=%s", movie)
+        endpoint := fmt.Sprintf("http://www.omdbapi.com/?apikey=18506062&t=%s", movie)
 
         resp, err := http.Get(endpoint)
         if err != nil {
